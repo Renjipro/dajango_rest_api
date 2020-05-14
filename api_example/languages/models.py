@@ -1,4 +1,6 @@
 from django.db import models
+import jsonfield
+from .myfields import MyJsonField
 
 class Language(models.Model):
     name = models.CharField(max_length=50)
@@ -10,6 +12,12 @@ class Language(models.Model):
 
 ################################################################################
 class Task(models.Model):
-    name = models.CharField(max_length=1)
+    configJSONFile = models.FileField()
+
+class ObjFile(models.Model):
+    objFile = models.FileField() 
+    #task = models.ForeignKey(Task, on_delete=models.CASCADE)
+
+
 
 

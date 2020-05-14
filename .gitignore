@@ -1,0 +1,5 @@
+.idea/*
+*/api_example/__pycache__/*
+*/languages/__pycache__/*
+*/migrations/__pycache__/*
+venv
