@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Language, Task, ObjFile
+from .models import Task, ObjFile
 
 # class LanguageSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -21,11 +21,11 @@ class ObjFileSerializer(serializers.ModelSerializer):
 
 class NewTaskSerializer(serializers.ModelSerializer):
     configJSONFile = serializers.FileField()
-    #objFile = ObjFileSerializer(many=True)
+    objFile = ObjFileSerializer(many=True, read_only=True)
     #objFile = serializers.FileField()
 
     class Meta:
         model = Task
-        fields = ['configJSONFile']
+        fields = ['created_at','configJSONFile', 'objFile']
 
  

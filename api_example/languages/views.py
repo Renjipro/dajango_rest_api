@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Language, Task
+from .models import Task, ObjFile
 from .serializers import NewTaskSerializer, ObjFileSerializer
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.response import Response
@@ -18,10 +18,14 @@ def TaskView(request):
         serializer = NewTaskSerializer(data=request.data)
         objSerializer = ObjFileSerializer(data=request.data)
         if serializer.is_valid():
-            request.POST.get("configJSONFile", "")
-            serializer.save()
-        if objSerializer.is_valid():
             request.POST.get("objFile", "")
-            objSerializer.save()
-            return Response(serializer.data, objSerializer.data, status=status.HTTP_201_CREATED)
+            request.POST.get("configJSONFile", "")
+            #serializer.save()
+        #if objSerializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'GET':
+        task = Task.objects.all()
+        serializer = NewTaskSerializer(task, many=True)
+        return Response(serializer.data)
